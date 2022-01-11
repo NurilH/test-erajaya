@@ -22,10 +22,16 @@ func New() *echo.Echo {
 	e.POST("/signup", controllers.CreateUserControllers)
 	e.POST("/login", controllers.LoginUserControllers)
 
+	e.GET("/products/sort/newest", controllers.GetProductSortByLastCreateControllers)
+	e.GET("/products/sort/asc/name", controllers.GetProductByNameSortAscControllers)
+	e.GET("/products/sort/asc/price", controllers.GetProductByPriceSortAscControllers)
+	e.GET("/products/sort/desc/name", controllers.GetProductByNameSortDescControllers)
+	e.GET("/products/sort/desc/price", controllers.GetProductByPriceSortDescControllers)
+
 	// group JWT
 	j := e.Group("/jwt")
 	j.Use(middleware.JWT([]byte(constants.SECRET_JWT)))
+	j.POST("/products/create", controllers.CreateProductControllers)
 
-	j.POST("/product/create", controllers.CreateProductControllers)
 	return e
 }

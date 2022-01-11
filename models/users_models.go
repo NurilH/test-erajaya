@@ -10,9 +10,14 @@ type Users struct {
 	Products []Products
 }
 
-type GetLoginUser struct {
+type ResLoginUser struct {
 	ID       uint
 	Email    string
 	Token    string
+	Password string
+}
+type ResCreateUser struct {
+	ID       uint
+	Email    string
 	Password string
 }

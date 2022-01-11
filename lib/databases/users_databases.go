@@ -11,12 +11,17 @@ func CreateUser(user *models.Users) (interface{}, error) {
 	if err := config.DB.Create(&user).Error; err != nil {
 		return nil, err
 	}
+	res_user := models.ResCreateUser{
+		ID:       user.ID,
+		Email:    user.Email,
+		Password: user.Password,
+	}
 
-	return user, nil
+	return res_user, nil
 }
 
 func LoginUser(user *models.Users) (interface{}, error) {
-	var get_login models.GetLoginUser
+	var get_login models.ResLoginUser
 	err := config.DB.Where("email = ?", user.Email).First(&user).Error
 	if err != nil {
 		return nil, err
@@ -27,6 +32,7 @@ func LoginUser(user *models.Users) (interface{}, error) {
 		return nil, err
 	}
 	// restruktur respons
+
 	get_login.ID = user.ID
 	get_login.Email = user.Email
 	get_login.Password = user.Password

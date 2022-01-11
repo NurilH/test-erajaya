@@ -10,3 +10,11 @@ type Products struct {
 	Price       int    `json:"price" form:"price"`
 	Quantity    int    `json:"quantity" form:"quantity"`
 }
+
+type ResProducts struct {
+	ID          uint
+	Name        string
+	Description string
+	Price       int
+	Quantity    int
+}
