@@ -24,4 +24,5 @@ func CreateProductControllers(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, response.SuccessResponseData("Success Operation", data))
+
 }
