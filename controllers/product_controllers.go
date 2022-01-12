@@ -19,20 +19,20 @@ func CreateProductControllers(c echo.Context) error {
 	user_id := middlewares.ExtractTokenId(c)
 	new_product.UsersID = uint(user_id)
 
-	if new_product.UsersID == 0 {
-		return c.JSON(http.StatusBadRequest, response.BadRequestResponse("Bad Requset"))
-	}
-	if !regexp.MustCompile("^[1-9][0-9]?.*$").MatchString(strconv.Itoa(new_product.Quantity)) {
-		return c.JSON(http.StatusBadRequest, response.BadRequestResponse("Invalid quantity"))
-	}
-	if !regexp.MustCompile("^[1-9]?[0-9]{4}.*$").MatchString(strconv.Itoa(new_product.Price)) {
-		return c.JSON(http.StatusBadRequest, response.BadRequestResponse("Invalid Price or price must be >=1000"))
+	if new_product.Price == 0001 {
+		return c.JSON(http.StatusBadRequest, response.BadRequestResponse("Bad Request"))
 	}
 	if !regexp.MustCompile("^[0-9A-Za-z].*$").MatchString(new_product.Name) {
 		return c.JSON(http.StatusBadRequest, response.BadRequestResponse("Invalid Name"))
 	}
 	if !regexp.MustCompile("^[0-9A-Za-z].*$").MatchString(new_product.Description) {
 		return c.JSON(http.StatusBadRequest, response.BadRequestResponse("Invalid Description"))
+	}
+	if !regexp.MustCompile("^[1-9][0-9]?.*$").MatchString(strconv.Itoa(new_product.Quantity)) {
+		return c.JSON(http.StatusBadRequest, response.BadRequestResponse("Invalid quantity"))
+	}
+	if !regexp.MustCompile("^[1-9]?[0-9]{4}.*$").MatchString(strconv.Itoa(new_product.Price)) {
+		return c.JSON(http.StatusBadRequest, response.BadRequestResponse("Invalid Price or price must be >=1000"))
 	}
 
 	data, err := databases.CreateProduct(&new_product)
