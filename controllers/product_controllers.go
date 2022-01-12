@@ -19,10 +19,13 @@ func CreateProductControllers(c echo.Context) error {
 	user_id := middlewares.ExtractTokenId(c)
 	new_product.UsersID = uint(user_id)
 
-	if !regexp.MustCompile("^[1-9]?[0-9].*$").MatchString(strconv.Itoa(new_product.Quantity)) {
+	if new_product.UsersID == 0 {
+		return c.JSON(http.StatusBadRequest, response.BadRequestResponse("Bad Requset"))
+	}
+	if !regexp.MustCompile("^[1-9][0-9]?.*$").MatchString(strconv.Itoa(new_product.Quantity)) {
 		return c.JSON(http.StatusBadRequest, response.BadRequestResponse("Invalid quantity"))
 	}
-	if !regexp.MustCompile("^[1-9]?[0-9]{3}.*$").MatchString(strconv.Itoa(new_product.Price)) {
+	if !regexp.MustCompile("^[1-9]?[0-9]{4}.*$").MatchString(strconv.Itoa(new_product.Price)) {
 		return c.JSON(http.StatusBadRequest, response.BadRequestResponse("Invalid Price or price must be >=1000"))
 	}
 	if !regexp.MustCompile("^[0-9A-Za-z].*$").MatchString(new_product.Name) {
