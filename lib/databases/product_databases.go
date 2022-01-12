@@ -22,7 +22,7 @@ func CreateProduct(product *models.Products) (interface{}, error) {
 }
 
 // function database untuk menampilkan data semua product dari yang terbaru
-func GetProductSortByLastCreate() (interface{}, error) {
+func GetProductBySortLastCreate() (interface{}, error) {
 	query := config.DB.Table("products").Select("*").Where("products.deleted_at IS NULL").Order("products.created_at DESC").Find(&res_products)
 	if query.Error != nil || query.RowsAffected == 0 {
 		return nil, query.Error

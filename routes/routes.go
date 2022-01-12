@@ -22,7 +22,7 @@ func New() *echo.Echo {
 	e.POST("/signup", controllers.CreateUserControllers)
 	e.POST("/login", controllers.LoginUserControllers)
 
-	e.GET("/products/sort/newest", controllers.GetProductSortByLastCreateControllers)
+	e.GET("/products/sort/newest", controllers.GetProductBySortLastCreateControllers)
 	e.GET("/products/sort/asc/name", controllers.GetProductByNameSortAscControllers)
 	e.GET("/products/sort/asc/price", controllers.GetProductByPriceSortAscControllers)
 	e.GET("/products/sort/desc/name", controllers.GetProductByNameSortDescControllers)

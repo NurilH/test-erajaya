@@ -40,8 +40,8 @@ func CreateProductControllers(c echo.Context) error {
 
 }
 
-func GetProductSortByLastCreateControllers(c echo.Context) error {
-	product, err := databases.GetProductSortByLastCreate()
+func GetProductBySortLastCreateControllers(c echo.Context) error {
+	product, err := databases.GetProductBySortLastCreate()
 	if product == nil {
 		return c.JSON(http.StatusBadRequest, response.BadRequestResponse("Data Not Found"))
 	}
