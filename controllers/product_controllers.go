@@ -18,17 +18,17 @@ func CreateProductControllers(c echo.Context) error {
 	user_id := middlewares.ExtractTokenId(c)
 	new_product.UsersID = uint(user_id)
 
+	if new_product.Quantity <= 0 {
+		return c.JSON(http.StatusBadRequest, response.BadRequestResponse("Invalid quantity"))
+	}
+	if new_product.Price < 1000 {
+		return c.JSON(http.StatusBadRequest, response.BadRequestResponse("Invalid Price"))
+	}
 	if !regexp.MustCompile("^[0-9A-Za-z].*$").MatchString(new_product.Name) {
 		return c.JSON(http.StatusBadRequest, response.BadRequestResponse("Invalid Name"))
 	}
 	if !regexp.MustCompile("^[0-9A-Za-z].*$").MatchString(new_product.Description) {
 		return c.JSON(http.StatusBadRequest, response.BadRequestResponse("Invalid Description"))
-	}
-	if new_product.Quantity <= 0 {
-		return c.JSON(http.StatusBadRequest, response.BadRequestResponse("Invalid quantity"))
-	}
-	if new_product.Price <= 1000 {
-		return c.JSON(http.StatusBadRequest, response.BadRequestResponse("Invalid Price"))
 	}
 
 	data, err := databases.CreateProduct(&new_product)
